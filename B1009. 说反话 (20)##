@@ -1,0 +1,47 @@
+/*
+https://www.patest.cn/contests/pat-b-practise/1009
+
+难度：2
+*/
+
+/*
+遇到的问题：
+1、gets函数不会用。
+2、strlen计算的是\0之前字节的数目。
+3、题目没读清，第一次直接从后往前把单词倒着输出了，要注意到，单词本身是正的，但是单词之间逆序了。
+4、空格处理的不好，修改了好几次才做对。
+
+注意事项：
+1、注意最后一个单词后面不能有空格。
+2、是单点测试，所以可用EOF来测试输入数据是否输入完毕。
+
+读取字符串两种方法：
+1、用gets获取字符串。
+2、用scanf("%s",ans[num])!=EOF来读取字符串。
+*/
+
+#include<stdio.h>
+#include<string.h>
+
+int main(){
+	char str[90],strT[90];
+	gets(str);
+	int len=strlen(str);
+	
+	int i=len-1;int j;
+	while(i>=0){
+		j=0;
+		while(str[i]!=' '&&i>=0){//先获得从后往前的第一个完整单词，此时单词是倒的
+			strT[j++]=str[i--];
+		}
+		while(j--){//strT从0到j存的是倒着的完整单词，所以需要从后往前输出
+			printf("%c",strT[j]);
+		}
+		if(i>=0){//如果不是最后一个单词，则后面需要跟空格
+			printf(" ");
+		}
+		i--;//如果i大于等于0，说明是因为str[i]等于空格所以循环结束，所以这个i要减一
+	}
+
+	return 0;
+}
