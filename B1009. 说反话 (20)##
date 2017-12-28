@@ -20,6 +20,7 @@ https://www.patest.cn/contests/pat-b-practise/1009
 2、用scanf("%s",ans[num])!=EOF来读取字符串。
 */
 
+//方法一：读取所有数据，倒着一个一个处理单词。较复杂。
 #include<stdio.h>
 #include<string.h>
 
@@ -45,3 +46,20 @@ int main(){
 
 	return 0;
 }
+
+//方法二：用二维数据，每次遇到空格即读取了一维，即一个单词。然后从二维数组最后一行依次向上输出每个一维数组中的单词，直到0即可。这种方法简单，不易错！
+#include<stdio.h>
+
+int main(){
+	int num=0;//单词的个数
+	char ans[90][90];
+	while(scanf("%s",ans[num])!=EOF){//一直输入到文件末尾
+		num++;
+	}
+	for(int i=num-1;i>=0;i--){
+		printf("%s",ans[i]);
+		if(i>0)printf(" ");
+	}
+	return 0;
+}
+
