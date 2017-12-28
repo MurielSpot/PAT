@@ -1,0 +1,34 @@
+/*
+https://www.patest.cn/contests/pat-b-practise/1032
+
+难度：1
+*/
+
+#include<stdio.h>
+
+const int maxn=100010;
+int a[maxn]={0};//记录每个学校的总分
+
+int main(){
+	int n;
+	scanf("%d",&n);
+	
+	int sch,score;
+	int schNum=1;//存一共有多少学校参加
+	for(int i=0;i<n;i++){
+		scanf("%d%d",&sch,&score);
+		a[sch]+=score;
+		if(sch>schNum)schNum=sch;
+	}
+	//因为从1连续编号，所以到schNum即为最后一个学校。
+	int maxScore=-1;int maxSchId=-1;
+	for(int i=1;i<=schNum;i++){
+		if(a[i]>maxScore){
+			maxScore=a[i];
+			maxSchId=i;
+		}
+	}
+	printf("%d %d",maxSchId,maxScore);
+	
+	return 0;
+}
