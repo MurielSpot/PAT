@@ -1,0 +1,52 @@
+/*
+https://www.patest.cn/contests/pat-b-practise/1022
+
+难度：
+*/
+
+/*
+遇到的问题：
+1、scanf中变量前忘了加&。
+2、忘了考虑a+b=0的情况。
+*/
+
+//下面这个是错的，因为没有考虑0的情况。
+#include<stdio.h>
+int main(){
+	int a,b,d;
+	scanf("%d %d %d",&a,&b,&d);
+	int deci=a+b;
+  
+	//除基取余
+	int num[33];int pos=0;
+  
+  //此处deci等于0时，会直接跳过，无输出。
+  //所以应使用do...while循环，使deci等于0的时候也至少循环一次。则pos会加一，下面的while会把0打印出来。
+	while(deci!=0){
+		num[pos++]=deci%d;
+		deci/=d;
+	}
+	while(pos--){
+		printf("%d",num[pos]);
+	}
+	return 0;
+}
+
+//正确写法
+#include<stdio.h>
+
+int main(){
+	int a,b,d;
+	scanf("%d %d %d",&a,&b,&d);
+	int deci=a+b;
+	//除基取余
+	int num[33];int pos=0;
+	do{
+		num[pos++]=deci%d;
+		deci/=d;
+	}while(deci!=0);
+	while(pos--){
+		printf("%d",num[pos]);
+	}
+	return 0;
+}
