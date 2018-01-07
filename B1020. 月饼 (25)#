@@ -1,0 +1,57 @@
+/*
+https://www.patest.cn/contests/pat-b-practise/1020
+
+难度：1
+*/
+/*
+注意事项：看清题目。此题输入样例最后一行是每种月饼总价格，不是单价，所以要计算出单价，对单价进行排序。
+*/
+
+#include<stdio.h>
+
+#include<iostream>
+#include<algorithm>
+using namespace std;
+
+struct cake{
+	double stock;
+	double price;//the aggregate price of this kind of cake.
+	double unitprice;
+};
+
+bool cmp(struct cake a,struct cake b){
+	return a.unitprice>b.unitprice;
+}
+
+int main(){
+	int n;//<=1000,the kinds of moon cakes.
+	double d;//<=500*10000 tons,the largest market demand.
+	cin>>n>>d;
+	
+	struct cake c[n+1];
+	for(int i=0;i<n;i++){
+		cin>>c[i].stock;
+	}
+	for(int i=0;i<n;i++){
+		cin>>c[i].price;
+		c[i].unitprice=c[i].price/c[i].stock;
+		//cout<<c[i].unitprice;
+	}
+	
+	//sort by the unitprice.
+	sort(c,c+n,cmp);
+	
+	double max=0,totaltons=0;
+	for(int i=0;i<n;i++){
+		if(totaltons+c[i].stock>d){//if after adding the i-th kind of cake's stock the total tons will exceed the largest demand,then add the needed tons.
+			max+=c[i].unitprice*(d-totaltons);
+			break;
+		}else{
+			max+=c[i].price;
+			totaltons+=c[i].stock;
+		}
+	}
+	printf("%.2lf",max);
+	
+	return 0;
+}
