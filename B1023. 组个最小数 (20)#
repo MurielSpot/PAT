@@ -7,6 +7,7 @@ https://www.patest.cn/contests/pat-b-practise/1023
 注意：
 1、又看错题了，题目直接给出0~9的个数，而不是具体数字。而且只输入10个数，并不是不确定的数。
 2、while(scanf("%d",&x)!=EOF)，想用这个输入数字，命令行模式用ctrl+z表示EOF，但是怎样都不能退出循环，不知道为什么！！！
+3、找第一位时，找到后要及时退出循环，不然会出错。
 */
 
 #include<stdio.h>
