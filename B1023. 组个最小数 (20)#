@@ -1,0 +1,45 @@
+/*
+https://www.patest.cn/contests/pat-b-practise/1023
+
+难度：1
+*/
+/*
+注意：
+1、又看错题了，题目直接给出0~9的个数，而不是具体数字。而且只输入10个数，并不是不确定的数。
+2、while(scanf("%d",&x)!=EOF)，想用这个输入数字，命令行模式用ctrl+z表示EOF，但是怎样都不能退出循环，不知道为什么！！！
+*/
+
+#include<stdio.h>
+
+#include<iostream>
+#include<algorithm>
+using namespace std;
+
+/*
+找除0外最小整数做首位。再将其余数字从小到大排列。
+*/
+int main(){
+	int digit[10]={0};//统计0~9出现次数。
+	
+	int x;
+	for(int i=0;i<10;i++){//确定首位。
+		cin>>x;
+		digit[i]=x;
+	}
+	
+	for(int i=1;i<10;i++){//确定首位。
+		if(digit[i]>0){
+			cout<<i;
+			digit[i]--;
+			break;
+		}
+	}
+	for(int i=0;i<10;i++){
+		while(digit[i]>0){
+			cout<<i;
+			digit[i]--;
+		}
+	}
+	
+	return 0;
+}
