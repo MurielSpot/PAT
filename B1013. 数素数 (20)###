@@ -1,0 +1,55 @@
+/*
+https://www.patest.cn/contests/pat-b-practise/1013
+
+难度：3
+*/
+
+/*
+注意：
+1、求素数表的方法，注意for是在if里的，因为合数有质因数r，此合数的倍数一定也有质因数r，即filter对应的合数和合数倍数位置在求得质因数r的时候已经被过滤了，不必在求得这个合数时再次重复标记，这一步是重复的，纯粹浪费资源。
+*/
+
+#include<stdio.h>
+
+#include<iostream>
+#include<algorithm>
+#include<cmath>
+using namespace std;
+
+const int maxn=10000000;
+int prime[10010];int primePtr=0;
+bool filter[10000000]={0};
+void find_prime(int xth){//找到第x个素数。
+	int i,j;
+	for(i=2;i<maxn;i++){
+		if(filter[i]==0){
+			prime[primePtr++]=i;
+			if(primePtr>=xth)break;
+			for(j=i+i;j<maxn;j+=i){
+				filter[j]=true;
+			}
+		}
+	}
+}
+
+
+int main(){
+	int m,n;
+	cin>>m>>n;
+	
+	find_prime(n);
+	
+	int newline=0;
+	for(int i=m-1;i<n;i++){
+		if(newline!=0){
+			cout<<" ";
+		}
+		cout<<prime[i];
+		newline++;
+		if(newline%10==0){
+			cout<<endl;
+			newline=0;
+		}
+	}
+	return 0;
+}
