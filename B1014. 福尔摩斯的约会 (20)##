@@ -1,0 +1,55 @@
+/*
+https://www.patest.cn/contests/pat-b-practise/1014
+难度：2
+
+注意事项：
+1、题目的意思不够清楚：注意是相同位置上相同的字母，而不是两个字符串中任意两个位置上相同的字母。
+2、scanf输入字符串时，结尾的\n不用getchar接收，之后仍然能正常接收下一个字符串。
+3、break使用要留心，看清楚是否在所有情况下break都是对的！
+*/ 
+
+#include<cstdio>
+#include<cstring>
+#include<algorithm>
+using namespace std;
+
+const int MAXN=65;
+char a[MAXN],b[MAXN],c[MAXN],d[MAXN];
+
+char week[7][4]={"MON","TUE","WED","THU","FRI","SAT","SUN"};
+
+int main(){
+	scanf("%s",a);
+	scanf("%s",b);
+	scanf("%s",c);
+	scanf("%s",d);
+	int flag=1;
+	int lena=strlen(a);
+	int lenb=strlen(b);
+	for(int i=0;i<min(lena,lenb);i++){
+		if(a[i]==b[i]){
+			if(flag==1&&a[i]>='A'&&a[i]<='G'){//此处限定的范围应该是A~G，而不是A~Z。
+				printf("%s ",week[a[i]-'A']);
+				flag=2;
+			}else if(flag==2){
+				if(a[i]>='A'&&a[i]<='N'){
+					printf("%02d:",a[i]-'A'+10);break;
+				}else if(a[i]>='0'&&a[i]<='9'){
+					printf("0%c:",a[i]);break;
+				}
+				//break;//不能在此处break！！因为此处a和b对应位置的值虽然相等，但未必是有效取值范围内的值。
+			}
+		}
+	}
+	int lenc=strlen(c);
+	int lend=strlen(d);
+	for(int i=0;i<min(lenc,lend);i++){
+		if(c[i]==d[i]){
+			if((c[i]<='Z'&&c[i]>='A')||(c[i]<='z'&&c[i]>='a')){
+				printf("%02d",i);
+				break;
+			}
+		}
+	}
+	return 0;
+}
