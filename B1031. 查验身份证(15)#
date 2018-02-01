@@ -22,7 +22,7 @@ int main(){
 	getchar();
 	int flag=1;
 	for(int i=0;i<n;i++){
-		scanf("%s",id);//此处需要判断是否身份证号码前17位都是数字，不然不严谨！
+		scanf("%s",id);//此处需要判断是否身份证号码前17位都是数字，不然可以算错误！
 		getchar();
 		int z=0;
 		for(int j=0;j<17;j++){
