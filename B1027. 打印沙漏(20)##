@@ -1,0 +1,60 @@
+/*
+https://www.patest.cn/contests/pat-b-practise/1027
+题型：输出图形
+
+难度：2
+
+注意事项：
+1、每一行左边有空格即可。右边空格也输出时，提示格式错误。
+*/
+
+#include<cstdio>
+#include<cstring>
+
+int n;char c;
+//假设给的字符有n个，则需满足1+4x+2x^2<=n，其中x取值从0开始，2x+1表示总的行数。
+void iteration(){
+	int t=0;
+	while(1+t*(2*t+4)<=n){
+		t++;
+	}
+	int level=2*(t-1)+1;
+	//此时t表示只有一个字符的那一行以及其上有多少行。
+	int blank=0;
+	for(int i=0;i<t;i++){
+		for(int j=0;j<blank;j++){
+			printf(" ");
+		}
+		for(int j=0;j<level-blank*2;j++){
+			printf("%c",c);
+		}
+//		for(int j=0;j<blank;j++){
+//			printf(" ");
+//		}
+		printf("\n");
+		blank++;
+	}
+	blank-=2;
+	for(int i=1;i<t;i++){
+		for(int j=0;j<blank;j++){
+			printf(" ");
+		}
+		for(int j=0;j<level-blank*2;j++){
+			printf("%c",c);
+		}
+//		for(int j=0;j<blank;j++){
+//			printf(" ");
+//		}
+		printf("\n");
+		blank--;
+	}
+	t--;
+	printf("%d",n-1-t*(2*t+4));
+}
+int main(){
+	scanf("%d %c",&n,&c);getchar();
+
+	iteration();
+	
+	return 0;
+}
