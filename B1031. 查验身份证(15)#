@@ -1,0 +1,38 @@
+/*
+https://www.patest.cn/contests/pat-b-practise/1031
+
+难度：1
+
+注意事项：
+1、字符参与计算时，有时需要适当转换为整数。 
+*/ 
+
+#include<cstdio>
+#include<cstring>
+
+int w[17]={7,9,10,5,8,4,2,1,6,3,7,9,10,5,8,4,2};
+char m[11]={'1','0','X','9','8','7','6','5','4','3','2'};
+
+int n;
+char id[19];
+
+int main(){
+	scanf("%d",&n);
+	getchar();
+	int flag=1;
+	for(int i=0;i<n;i++){
+		scanf("%s",id);
+		getchar();
+		int z=0;
+		for(int j=0;j<17;j++){
+			z+=w[j]*(id[j]-'0');//注意此处计算id中是字符要转换为数字！ 
+		}
+		z%=11;
+		if(m[z]!=id[17]){
+			if(flag)flag=0;
+			printf("%s\n",id);
+		}
+	}
+	if(flag)printf("All passed");
+	return 0;
+}
