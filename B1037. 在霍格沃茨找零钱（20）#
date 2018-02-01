@@ -1,0 +1,66 @@
+/*
+https://www.patest.cn/contests/pat-b-practise/1037
+题型：货币交易加减法模拟。
+
+难度：1
+
+注意事项：
+我做的方法有些啰嗦，可以将钱币全换算成knut，然后相减，正负号照旧输出，将数字的绝对值再转变为galleon.sickle.knut的格式即可。我的做法比刚才说的这种做法访存次数要多！
+*/
+
+#include<cstdio>
+#include<cstring>
+
+struct currency{
+	int galleon;
+	int sickle;
+	int knut;
+	currency(){
+		galleon=0;
+		sickle=0;
+		knut=0;
+	}
+	currency(int a,int b,int c){
+		galleon=a;
+		sickle=b;
+		knut=c;
+	}
+};
+
+bool notless(currency a,currency b){
+	if(a.galleon==b.galleon){
+		if(a.sickle==b.sickle){
+			return a.knut>=b.knut;
+		}else return a.sickle>b.sickle;
+	}else return a.galleon>b.galleon;
+}
+
+//只有a大于等于b时才进行减法。
+currency minus(currency a,currency b){
+	currency t;
+	if(a.knut<b.knut){
+		a.knut+=29;
+		a.sickle--;
+	}
+	t.knut=a.knut-b.knut;
+	if(a.sickle<b.sickle){
+		a.sickle+=17;
+		a.galleon--;
+	}
+	t.sickle=a.sickle-b.sickle;
+	t.galleon=a.galleon-b.galleon;
+	return t;
+}
+
+int main(){
+	currency p,a,result;
+	scanf("%d.%d.%d %d.%d.%d",&p.galleon,&p.sickle,&p.knut,&a.galleon,&a.sickle,&a.knut);
+	if(notless(a,p)){
+		result=minus(a,p);
+		printf("%d.%d.%d",result.galleon,result.sickle,result.knut);
+	}else{
+		result=minus(p,a);
+		printf("-%d.%d.%d",result.galleon,result.sickle,result.knut);
+	}
+	return 0;
+}
