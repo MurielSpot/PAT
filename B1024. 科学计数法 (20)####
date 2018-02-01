@@ -1,0 +1,91 @@
+/*
+https://www.patest.cn/contests/pat-b-practise/1024
+题型：科学记数法与普通记数法的转换。
+
+难度：4（科学记数法的题目太可怕了，要考虑的情况太多，必须提前想好不能边想边写否则很容易思维混乱或全部推倒重来）
+
+注意事项：
+1、输出字符时不用忘了用%c，总是顺手打出%d。
+2、因为时char数组所以去除前导零时用num[i]=='0'放在循环里，不是num[i]==0！！！
+*/ 
+
+#include<cstdio>
+#include<cstring>
+#include<algorithm>
+using namespace std;
+
+const int MAXN=20010;
+
+char num[MAXN];int numPtr=0;
+
+int main(){
+	int c;
+	c=getchar();
+	if(c=='-'){
+		printf("-");
+	}
+	//整数部分只有1位，所以小数部分肯定在第一个数字后面。
+	/*
+		分多种情况讨论：
+		1、不管指数如何，如果有多余前导0都要删掉。
+		2、指数小于0时，可能会遇到前面需要增加0的情况。
+		3、指数大于0时，可能会遇到后面需要增加0的情况，此时小数点就不用输出了。
+		4、指数大于0时，如果后面不需要添加0，小数点还是要后移的，注意移到最后一位后面就不需要输出小数点了。
+		
+		另外考虑：前导零的删除只有在得到指数之后才能确定。
+	*/
+	num[numPtr++]=getchar();//得到第一位的数。
+	getchar();//去除小数点。
+	while((c=getchar())!='E'){
+		num[numPtr++]=c;
+	}
+	num[numPtr]='\0';//此时numPtr指向数字最后一位的后面一个位置。
+	int e;
+	scanf("%d",&e);
+	
+	int pointPos=1;
+	pointPos+=e;//得到小数点应该数组num中的什么地方。
+	//根据小数点位置来删除前导零。
+	if(pointPos<=0){//需要补0，不需要删除前导0。
+		printf("0.");
+		for(int j=0;j<(-pointPos);j++){
+			printf("0");
+		}
+		printf("%s",num);
+	}else if(pointPos>=numPtr){//小数点正好在所有数字的最后，小数点不用输出，前导零看情况删除。
+		int i=0;
+		while(i<numPtr&&num[i]=='0'){
+			i++;
+		}
+		if(i==numPtr){//所有数位都是0。
+			printf("0");
+		}else{//遇到不是0的数位。
+			while(i<numPtr){
+				printf("%c",num[i++]);
+			}
+		}
+		for(int j=0;j<pointPos-numPtr;j++){
+			printf("0");
+		}
+	}else{//小数点在所有数字的中间，看情况删除前导零，因为小数点后面即使是0也是要输出的，所以小数点肯定会输出。
+		int i=0;
+		while(i<pointPos&&num[i]=='0'){
+			i++;
+		}
+		if(i==pointPos){//如果小数点之前的位都为0。则从当前位开始输出。
+			printf("0.");
+			while(i<numPtr){
+				printf("%c",num[i++]);
+			}
+		}else if(num[i]!=0){//因为遇到非零值才跳出的循环。
+			while(i<pointPos){
+				printf("%c",num[i++]);
+			}
+			printf(".");
+			while(i<numPtr){
+				printf("%c",num[i++]);
+			}
+		}
+	}
+	return 0;
+}
