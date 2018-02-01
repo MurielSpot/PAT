@@ -5,6 +5,7 @@ https://www.patest.cn/contests/pat-b-practise/1031
 
 注意事项：
 1、字符参与计算时，有时需要适当转换为整数。 
+2、前七位有非数字存在也算身份证号错误。我的代码中没有考虑这一点，虽然全部测试样例通过，但是如果凑巧前17为有字母，且它的ascii码值参加运算后得到的校验码的结果与最后一位校验码恰巧相等，就会错误判断这是一个对的身份证号，所以我的代码不严谨！
 */ 
 
 #include<cstdio>
@@ -21,7 +22,7 @@ int main(){
 	getchar();
 	int flag=1;
 	for(int i=0;i<n;i++){
-		scanf("%s",id);
+		scanf("%s",id);//此处需要判断是否身份证号码前17位都是数字，不然不严谨！
 		getchar();
 		int z=0;
 		for(int j=0;j<17;j++){
