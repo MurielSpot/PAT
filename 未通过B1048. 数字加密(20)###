@@ -1,0 +1,62 @@
+/*
+两个测试点未通过，不知道为什么！
+
+https://www.patest.cn/contests/pat-b-practise/1048
+难度：3
+
+注意事项：
+*/ 
+
+#include<cstdio>
+#include<cstring>
+#include<algorithm>
+using namespace std;
+
+const int MAXN=110;
+char a[MAXN];
+char b[MAXN];
+int result[MAXN];int resultPtr=0;
+int main(){
+	/*
+	b长度小于等于a时，a高位不需要补0；否则，a高位需要补零。
+	*/
+	scanf("%s%s",a,b);
+	int lena=strlen(a),lenb=strlen(b);
+	int i=0;
+	for(i=1;i<=lenb;i++){
+		if(i==lena+1)break;
+		if(i%2){
+			result[resultPtr]=(b[lenb-i]-'0'+a[lena-i]-'0')%13;
+			if(result[resultPtr]==10){
+				result[resultPtr]='J';
+			}else if(result[resultPtr]==11){
+				result[resultPtr]='Q';
+			}else if(result[resultPtr]==12){
+				result[resultPtr]='K';
+			}else{
+				result[resultPtr]+='0';
+			}
+			resultPtr++;
+		}else{
+			result[resultPtr]=b[lenb-i]-a[lena-i];
+			if(result[resultPtr]<0){
+				result[resultPtr]=result[resultPtr]+10+'0';
+			}else{
+				result[resultPtr]+='0';
+			}
+			resultPtr++;
+		}
+	}
+	if(i==lena+1){//a长度小，高位补0继续处理。
+		while(i<=lenb){
+			result[resultPtr++]=b[lenb-i];
+			i++; 
+		}
+	}
+	
+	//逆序输出
+	for(int j=resultPtr-1;j>=0;j--){
+		printf("%c",result[j]);
+	}
+	return 0;
+}
